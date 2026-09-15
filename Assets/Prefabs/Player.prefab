@@ -504,7 +504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1439012799587698732
 Transform:
   m_ObjectHideFlags: 0
@@ -1331,12 +1331,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7597973970400356769}
   - component: {fileID: 539131827250247519}
-  - component: {fileID: 7428100341143982902}
   - component: {fileID: 6592408515279840003}
+  - component: {fileID: 7428100341143982902}
   - component: {fileID: 5129720637480430719}
   - component: {fileID: 8109356595250739394}
   - component: {fileID: 8394136751039417602}
   - component: {fileID: 624931627618742270}
+  - component: {fileID: 6394781639534002150}
   - component: {fileID: 7122016123694856590}
   - component: {fileID: 4220286364020784275}
   m_Layer: 0
@@ -1406,25 +1407,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7428100341143982902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075215851088323473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57d7d18be984354b88712e05a1e152c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  _groundDetector: {fileID: 5129720637480430719}
-  <Animator>k__BackingField: {fileID: 8109356595250739394}
-  <Mover>k__BackingField: {fileID: 624931627618742270}
-  <Weapons>k__BackingField:
-  - {fileID: 5535731804248231639}
-  - {fileID: 2865979182290950228}
-  <WeaponHolding>k__BackingField: {fileID: 8394136751039417602}
 --- !u!143 &6592408515279840003
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1450,6 +1432,26 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7428100341143982902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075215851088323473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c57d7d18be984354b88712e05a1e152c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  _groundDetector: {fileID: 5129720637480430719}
+  <Animator>k__BackingField: {fileID: 8109356595250739394}
+  <Mover>k__BackingField: {fileID: 624931627618742270}
+  <Rotator>k__BackingField: {fileID: 6394781639534002150}
+  <Weapons>k__BackingField:
+  - {fileID: 5535731804248231639}
+  - {fileID: 2865979182290950228}
+  <WeaponHolding>k__BackingField: {fileID: 8394136751039417602}
 --- !u!114 &5129720637480430719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1509,8 +1511,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMover
   _moveSpeed: 3
-  _rotationSpeed: 15
   _characterController: {fileID: 6592408515279840003}
+--- !u!114 &6394781639534002150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075215851088323473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad99218b0f614804ab00de8c257f634f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRotator
+  _rotationSpeed: 15
 --- !u!114 &7122016123694856590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3632,7 +3646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5701002685251189668
 Transform:
   m_ObjectHideFlags: 0

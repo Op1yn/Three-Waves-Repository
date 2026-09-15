@@ -4,17 +4,15 @@ using UnityEngine.InputSystem;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 3f;
-    [SerializeField] private float _rotationSpeed = 15f;
     [SerializeField] private const float _forceGravity = -9.81f;
     [SerializeField] CharacterController _characterController;
 
     private PlayerInputSystemActions _playerInput;
     private Vector2 _directionMovement;
     private Vector3 _horizontalDirection;
-    private Vector2 _directionLook;
     private float _verticalVelocity;
 
-    public void SetPlayerInputSystemActions(PlayerInputSystemActions playerInput)// Нужно инициализировать это в соотвевующем класе инициализации игрока
+    public void SetPlayerInputSystemActions(PlayerInputSystemActions playerInput)
     {
         _playerInput = playerInput;
     }
@@ -38,11 +36,5 @@ public class PlayerMover : MonoBehaviour
 
         if (_characterController.isGrounded)
             _verticalVelocity = 0;
-    }
-
-    public void RotateBody()
-    {
-        _directionLook = _playerInput.Player.Look.ReadValue<Vector2>();
-        transform.Rotate(Vector3.up, _directionLook.x * _rotationSpeed * Time.deltaTime, Space.World);
     }
 }

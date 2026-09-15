@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     [field: SerializeField] public PlayerAnimator Animator { get; private set; }
     [field: SerializeField] public PlayerMover Mover { get; private set; }
+    [field: SerializeField] public PlayerRotator Rotator { get; private set; }
     [field: SerializeField] public List<Weapon> Weapons { get; private set; }
     [field: SerializeField] public WeaponHolder WeaponHolding { get; private set; }
 

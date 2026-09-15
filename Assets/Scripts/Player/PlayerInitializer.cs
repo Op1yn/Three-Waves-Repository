@@ -11,9 +11,12 @@ public class PlayerInitializer : MonoBehaviour
         InitializePlayer(player);
     }
 
-    public void InitializePlayer(Player player)
+    public void InitializePlayer(Player player)//“ут иницианизируем все вспомогательные методы (Mover, 
     {
         InitializeStates(player);
+        player.Mover.SetPlayerInputSystemActions(player.InputReader);
+        player.Rotator.SetPlayerInputSystemActions(player.InputReader);
+
         player.gameObject.SetActive(true);
     }
 
