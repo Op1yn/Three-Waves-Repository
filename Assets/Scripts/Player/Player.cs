@@ -7,9 +7,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GroundDetector _groundDetector;
 
     [field: SerializeField] public PlayerAnimator Animator { get; private set; }
-    [field: SerializeField] public WeaponHolder WeaponHolding { get; private set; }
-    [field: SerializeField] public List<Weapon> Weapons { get; private set; }
     [field: SerializeField] public PlayerMover Mover { get; private set; }
+    [field: SerializeField] public List<Weapon> Weapons { get; private set; }
+    [field: SerializeField] public WeaponHolder WeaponHolding { get; private set; }
 
     public CharacterController CharacterController { get; private set; }
     public PlayerInputSystemActions InputReader { get; private set; }

@@ -9,6 +9,6 @@ public class GameInitializer : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        _playerInitializer.InitializePlayer();
+        _playerInitializer.CreatePlayer();
     }
 }

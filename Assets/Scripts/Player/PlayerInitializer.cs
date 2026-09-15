@@ -2,25 +2,31 @@ using UnityEngine;
 
 public class PlayerInitializer : MonoBehaviour
 {
-    [SerializeField] private Player _player;
+    [SerializeField] private Player _sample;
 
-    public void InitializePlayer()
+    public void CreatePlayer()
     {
-        InitializeStates();
+        Player player = Instantiate(_sample);
 
-        _player.gameObject.SetActive(true);
+        InitializePlayer(player);
     }
 
-    private void InitializeStates()
+    public void InitializePlayer(Player player)
     {
-        _player.MovementStateMachine.AddState(new PlayerStateIdle(_player));
-        _player.MovementStateMachine.AddState(new PlayerStateMove(_player));
+        InitializeStates(player);
+        player.gameObject.SetActive(true);
+    }
 
-        _player.CombatStateMachine.AddState(new PlayerStateNone(_player));
-        _player.CombatStateMachine.AddState(new PlayerStateWeaponSwitch(_player));
-        _player.CombatStateMachine.AddState(new PlayerStateAttack(_player));
+    private void InitializeStates(Player player)
+    {
+        player.MovementStateMachine.AddState(new PlayerStateIdle(player));
+        player.MovementStateMachine.AddState(new PlayerStateMove(player));
 
-        _player.MovementStateMachine.ChangeState<PlayerStateIdle>();
-        _player.CombatStateMachine.ChangeState<PlayerStateNone>();
+        player.CombatStateMachine.AddState(new PlayerStateNone(player));
+        player.CombatStateMachine.AddState(new PlayerStateWeaponSwitch(player));
+        player.CombatStateMachine.AddState(new PlayerStateAttack(player));
+
+        player.MovementStateMachine.ChangeState<PlayerStateIdle>();
+        player.CombatStateMachine.ChangeState<PlayerStateNone>();
     }
 }
