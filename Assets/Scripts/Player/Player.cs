@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//TODO —делал основной слой анимации. ƒальше нежно сделать 4 анимации боевого сло€ (удар выстрел держание лопаты и ружь€)
+//TODO ¬озможно держание лопаты и ружь€ можно в аниматоре сделать одним состо€нием и мен€ть положение рук с помощью IK Constrain
 public class Player : MonoBehaviour
 {
     [SerializeField] private GroundDetector _groundDetector;
