@@ -6,8 +6,6 @@ public class PlayerStateNone : PlayerState
 
     public override void Enter()
     {
-        Character.WeaponHolding.TakeUpArms(Character.WeaponHolding.CurrentWeapon);
-
         Character.InputReader.Player.Attack.started += SetAttackState;
         Character.InputReader.Player.Interact.started += SetWeaponSwitchingState;
     }

@@ -17,6 +17,8 @@ public class PlayerInitializer : MonoBehaviour
         player.Mover.SetPlayerInputSystemActions(player.InputReader);
         player.Rotator.SetPlayerInputSystemActions(player.InputReader);
 
+        player.WeaponHolding.TakeUpArms(player.Weapons[0]);
+
         player.gameObject.SetActive(true);
     }
 

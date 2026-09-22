@@ -4,8 +4,8 @@ using UnityEngine.Animations.Rigging;
 
 public class WeaponHolder : MonoBehaviour
 {
-    [SerializeField] private Transform TwoHandedInIdle;
-    [SerializeField] private Transform TwoHandedInStriking;
+    [SerializeField] private Transform TwoHandedInIdle;//тут
+    [SerializeField] private Transform TwoHandedInStriking;//и тут в инспекторе заменить. Еслди не придётся вообще удалить
     [SerializeField] private TwoBoneIKConstraint _rightHandIK;
     [SerializeField] private TwoBoneIKConstraint _leftHandIK;
 
