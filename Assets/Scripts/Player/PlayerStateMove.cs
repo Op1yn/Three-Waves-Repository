@@ -21,5 +21,6 @@ public class PlayerStateMove : PlayerState
     public override void LateUpdate()
     {
         Character.Rotator.RotateBody();
+        Character.VerticalLook.Rotate();
     }
 }

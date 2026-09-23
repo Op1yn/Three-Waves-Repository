@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-//TODO Сделал основной слой анимации. Дальше ну жно сделать 4 анимации боевого слоя (удар выстрел держание лопаты и ружья)
 //TODO Возможно держание лопаты и ружья можно в аниматоре сделать одним состоянием и менять положение рук с помощью IK Constrain
-//TODO ОСТАНОВИЛСЯ НА ТОМ, что надо сделать камеру от 3 лица
+//TODO  надо сделать правильное удержание оружия в руках персонажа. Сначала сделать отображение прицела и потом сделать чтобы на этот прицел ориетировалась спина и голова. Соотвевенно будет ориентироваться и оружие
+//TODO ОСТАНОВИЛСЯ НА ТОМ, что надо правильно выстроить оси у Aim Constrainов (просто скопировать из своего прошлого проекта) 
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerAnimator Animator { get; private set; }
     [field: SerializeField] public PlayerMover Mover { get; private set; }
     [field: SerializeField] public PlayerRotator Rotator { get; private set; }
+    [field: SerializeField] public PlayerVerticalLook VerticalLook { get; private set; }
     [field: SerializeField] public List<Weapon> Weapons { get; private set; }
     [field: SerializeField] public WeaponHolder WeaponHolding { get; private set; }
 
