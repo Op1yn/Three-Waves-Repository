@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 //TODO Возможно держание лопаты и ружья можно в аниматоре сделать одним состоянием и менять положение рук с помощью IK Constrain
-//TODO  надо сделать правильное удержание оружия в руках персонажа. Сначала сделать отображение прицела и потом сделать чтобы на этот прицел ориетировалась спина и голова. Соотвевенно будет ориентироваться и оружие
-//TODO ОСТАНОВИЛСЯ НА ТОМ, что надо правильно выстроить оси у Aim Constrainов (просто скопировать из своего прошлого проекта) 
+//TODO Остановился тут. Надо сделать стрельбу (лучи) и удар лопатой (область по которой наносится урон). Затем сделать обычных врогов и босса
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour
@@ -15,7 +14,7 @@ public class Player : MonoBehaviour
     [field: SerializeField] public PlayerRotator Rotator { get; private set; }
     [field: SerializeField] public PlayerVerticalLook VerticalLook { get; private set; }
     [field: SerializeField] public List<Weapon> Weapons { get; private set; }
-    [field: SerializeField] public WeaponHolder WeaponHolding { get; private set; }
+    [field: SerializeField] public PlayerWeaponHolder WeaponHolding { get; private set; }
 
     public CharacterController CharacterController { get; private set; }
     public PlayerInputSystemActions InputReader { get; private set; }

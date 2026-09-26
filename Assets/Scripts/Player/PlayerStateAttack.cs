@@ -8,13 +8,13 @@ public class PlayerStateAttack : PlayerState
     public override void Enter()
     {
         Character.Animator.CompletedStrike += SetNoneState;
-
-        if (Character.WeaponHolding.CurrentWeapon.IsFirearm == false)
-        {
-            Character.WeaponHolding.TakeUpTwoHandedForStriking();
-        }
-
         Character.Animator.SetTriggerAttack();
+        Character.WeaponHolding.CurrentWeapon.Attack();
+    }
+
+    public override void LateUpdate()
+    {
+        Character.WeaponHolding.TurnToTarget();
     }
 
     public override void Exit()

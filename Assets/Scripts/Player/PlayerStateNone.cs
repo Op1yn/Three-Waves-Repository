@@ -10,6 +10,11 @@ public class PlayerStateNone : PlayerState
         Character.InputReader.Player.Interact.started += SetWeaponSwitchingState;
     }
 
+    public override void LateUpdate()
+    {
+        Character.WeaponHolding.TurnToTarget();
+    }
+
     public override void Exit()
     {
         Character.InputReader.Player.Attack.started -= SetAttackState;

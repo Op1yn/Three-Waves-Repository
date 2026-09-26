@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiAimConstraint
-  m_Weight: 1
+  m_Weight: 0.7
   m_Data:
     m_ConstrainedObject: {fileID: 4680087028939623872}
     m_SourceObjects:
@@ -74,10 +74,10 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
-    m_AimAxis: 4
-    m_UpAxis: 2
+    m_MinLimit: -25
+    m_MaxLimit: 25
+    m_AimAxis: 3
+    m_UpAxis: 1
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
@@ -581,7 +581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1439012799587698732
 Transform:
   m_ObjectHideFlags: 0
@@ -668,12 +668,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437fb44b23da18543a263808a6ceb6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shotgun
-  _player: {fileID: 7428100341143982902}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   <Damage>k__BackingField: 10
   <IsFirearm>k__BackingField: 1
+  _pelletsCount: 20
+  _spreadFactor: 0.02
+  _shotRange: 50
 --- !u!1 &1500810482599586569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,10 +1578,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de66f42dc21cd64a81565bfaa594ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponHolder
-  TwoHandedInIdle: {fileID: 3729577506163194711}
-  TwoHandedInStriking: {fileID: 3729577506163194711}
-  _rightHandIK: {fileID: 7306656371232700471}
-  _leftHandIK: {fileID: 6293146686731107919}
+  ShovelInIdle: {fileID: 3729577506163194711}
+  _weaponsRig: {fileID: 3774820638942426695}
+  _followerTransform: {fileID: 1696898185164393088}
 --- !u!114 &624931627618742270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,9 +1621,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.RigBuilder
   m_RigLayers:
-  - m_Rig: {fileID: 3774820638942426695}
-    m_Active: 1
   - m_Rig: {fileID: 6007086445688402911}
+    m_Active: 1
+  - m_Rig: {fileID: 3774820638942426695}
     m_Active: 1
   m_Effectors:
   - m_Transform: {fileID: 2087346538793827435}
@@ -2639,8 +2640,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
+    m_MinLimit: -35
+    m_MaxLimit: 35
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0
@@ -2962,7 +2963,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Animation.Rigging::UnityEngine.Animations.Rigging.MultiAimConstraint
-  m_Weight: 1
+  m_Weight: 0.7
   m_Data:
     m_ConstrainedObject: {fileID: 5975511274725134382}
     m_SourceObjects:
@@ -2992,10 +2993,10 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
-    m_AimAxis: 4
-    m_UpAxis: 2
+    m_MinLimit: -25
+    m_MaxLimit: 25
+    m_AimAxis: 3
+    m_UpAxis: 1
     m_WorldUpType: 0
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
@@ -3595,7 +3596,7 @@ Transform:
   m_GameObject: {fileID: 4895859551332541920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -3.25}
+  m_LocalPosition: {x: 0, y: 2.15, z: -2.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3657,10 +3658,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.5, z: 0.3}
-  ShoulderOffset: {x: 0, y: 2, z: -0.25}
+  ShoulderOffset: {x: 0, y: 2.15, z: 0}
   VerticalArmLength: 0
   CameraSide: 1
-  CameraDistance: 3
+  CameraDistance: 2.4
   AvoidObstacles:
     Enabled: 1
     CollisionFilter:
@@ -4141,13 +4142,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5694954920830332992}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.038843594, y: 0.82857955, z: 0.55851823, w: -0.002153969}
+  m_LocalPosition: {x: 8.22, y: 12.11, z: 19.71}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3729577506163194711}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -112.273, y: 7.1170044, z: 169.853}
 --- !u!33 &5726876765098440932
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4217,10 +4218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c285bc52aa6892498b5c84445439427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shovel
-  _player: {fileID: 7428100341143982902}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   <Damage>k__BackingField: 50
   <IsFirearm>k__BackingField: 0
 --- !u!1 &5708779929145120994
@@ -4299,7 +4299,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1696898185164393088}
   m_Layer: 6
-  m_Name: Target Tracking
+  m_Name: Follower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5819,8 +5819,8 @@ MonoBehaviour:
         transform: {fileID: 0}
         weight: 0
     m_Offset: {x: 0, y: 0, z: 0}
-    m_MinLimit: -180
-    m_MaxLimit: 180
+    m_MinLimit: -45
+    m_MaxLimit: 45
     m_AimAxis: 4
     m_UpAxis: 2
     m_WorldUpType: 0

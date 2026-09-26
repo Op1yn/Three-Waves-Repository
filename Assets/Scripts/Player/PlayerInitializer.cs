@@ -1,11 +1,10 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public class PlayerInitializer : MonoBehaviour
 {
     [SerializeField] private Player _sample;
-    [SerializeField] private Transform _targetTracking;
+    [SerializeField] private Transform _targetTransform;
 
     public void CreatePlayer()
     {
@@ -21,7 +20,7 @@ public class PlayerInitializer : MonoBehaviour
         player.Rotator.SetPlayerInputSystemActions(player.InputReader);
         player.VerticalLook.SetPlayerInputSystemActions(player.InputReader);
 
-        InitializeWeaponHolder(player, _targetTracking);
+        InitializeWeaponHolder(player, _targetTransform);
         player.WeaponHolding.TakeUpArms(player.Weapons[0]);
 
         player.gameObject.SetActive(true);
@@ -37,18 +36,11 @@ public class PlayerInitializer : MonoBehaviour
         player.CombatStateMachine.AddState(new PlayerStateAttack(player));
 
         player.MovementStateMachine.ChangeState<PlayerStateIdle>();
-        player.CombatStateMachine.ChangeState<PlayerStateNone>();
+        player.CombatStateMachine.ChangeState<PlayerStateWeaponSwitch>();
     }
 
-    private void InitializeWeaponHolder(Player player, Transform targetTracking)
+    private void InitializeWeaponHolder(Player player, Transform targetTransform)
     {
-        MultiAimConstraint[] multiAimConstraints = player.GetComponentsInChildren<MultiAimConstraint>();
-
-        for (int i = 0; i < multiAimConstraints.Length; i++)
-        {
-            WeightedTransform weightedTransform = new WeightedTransform(targetTracking, 1);
-
-            multiAimConstraints[i].data.sourceObjects.Add( weightedTransform);
-        }
+        player.WeaponHolding.SetTargetTransform(targetTransform);
     }
 }
