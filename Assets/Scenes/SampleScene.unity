@@ -1911,7 +1911,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInitializer
   _sample: {fileID: 7428100341143982902, guid: b27aa2885edfc57428a5057ee9a01b49, type: 3}
-  _targetTracking: {fileID: 918291051}
   _targetTransform: {fileID: 918291051}
 --- !u!1001 &1183726268
 PrefabInstance:
