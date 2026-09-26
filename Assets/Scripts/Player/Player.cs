@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-//TODO Возможно держание лопаты и ружья можно в аниматоре сделать одним состоянием и менять положение рук с помощью IK Constrain
-//TODO Остановился тут. Надо сделать стрельбу (лучи) и удар лопатой (область по которой наносится урон). Затем сделать обычных врогов и босса
+
+//TODO Остановился тут. Надо сделать обычных врагов и босса
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : MonoBehaviour

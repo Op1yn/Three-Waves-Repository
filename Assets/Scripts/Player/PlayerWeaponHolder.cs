@@ -32,9 +32,18 @@ public class PlayerWeaponHolder : MonoBehaviour
         }
     }
 
-    public void TurnToTarget()//Тут перед записью позиции в Follower нужно кидать рейкаст и смотреть расстояние до цели и приписывать его уже потом
+    public void TurnToTarget()
     {
-        _followerTransform.position = _targetTransform.position;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        {
+            _followerTransform.position = hit.point;
+        }
+        else
+        {
+            _followerTransform.position = _targetTransform.position;
+        }
     }
 
     public void ToLetGoFirearm()
