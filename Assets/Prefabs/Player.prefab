@@ -674,7 +674,7 @@ MonoBehaviour:
   <Damage>k__BackingField: 10
   <IsFirearm>k__BackingField: 1
   _pelletsCount: 20
-  _spreadFactor: 0.005
+  _spreadFactor: 0.017
   _shotRange: 50
 --- !u!1 &1500810482599586569
 GameObject:
@@ -1482,7 +1482,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 08ef1e4abf5b62a47a85c3f437d5adf2, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0

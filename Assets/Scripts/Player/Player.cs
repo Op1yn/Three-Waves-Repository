@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO Остановился тут. Надо сделать обычных врагов и босса
+//TODO Остановился тут. Надо сделать врагам состояния, атаки и смерть врагов и игрока. Затем делать босса.
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] private GroundDetector _groundDetector;
 

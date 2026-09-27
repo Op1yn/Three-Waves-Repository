@@ -6,14 +6,15 @@ public class PlayerInitializer : MonoBehaviour
     [SerializeField] private Player _sample;
     [SerializeField] private Transform _targetTransform;
 
-    public void CreatePlayer()
+    public Player CreatePlayer()
     {
         Player player = Instantiate(_sample);
-
         InitializePlayer(player);
+
+        return player;
     }
 
-    public void InitializePlayer(Player player)//“ут иницианизируем все вспомогательные методы (Mover, 
+    public void InitializePlayer(Player player)
     {
         InitializeStates(player);
         player.Mover.SetPlayerInputSystemActions(player.InputReader);
