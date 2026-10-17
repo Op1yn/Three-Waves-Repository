@@ -6,5 +6,8 @@ public class EnemyStateIdle : EnemyState
     {
     }
 
-    
+    public override void Enter()
+    {
+        Character.StateMachine.ChangeState<EnemyStateChase>();
+    }
 }

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO Остановился тут. Надо сделать врагам состояния, атаки и смерть врагов и игрока. Затем делать босса.
+//TODO Остановился тут. Сделать менеджер волн и затем хилбары для игрока и врагов
+//TODO Остановился тут. А в Scene должен вестись счёт заспавненных зомби, чтобы останавливать когда потребуется
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : Character
@@ -14,11 +16,14 @@ public class Player : Character
     [field: SerializeField] public PlayerVerticalLook VerticalLook { get; private set; }
     [field: SerializeField] public List<Weapon> Weapons { get; private set; }
     [field: SerializeField] public PlayerWeaponHolder WeaponHolding { get; private set; }
+    [field: SerializeField] public Health Health { get; private set; }
 
     public CharacterController CharacterController { get; private set; }
     public PlayerInputSystemActions InputReader { get; private set; }
     public PlayerStateMachine MovementStateMachine { get; private set; }
     public PlayerStateMachine CombatStateMachine { get; private set; }
+
+    public event Action Dying;
 
     private void Awake()
     {
@@ -48,5 +53,22 @@ public class Player : Character
     private void OnDisable()
     {
         InputReader?.Disable();
+        Health.HealthPointsOver -= SetStateDeath;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        Health.SubtractHealth(damage);
+    }
+
+    public void SetStateDeath()
+    {
+        MovementStateMachine.ChangeState<PlayerStateDead>();
+        CombatStateMachine.ChangeState<PlayerStateDead>();
+    }
+
+    public void ReportDeaths()
+    {
+        Dying?.Invoke();
     }
 }

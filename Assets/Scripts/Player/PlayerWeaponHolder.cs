@@ -4,7 +4,6 @@ using UnityEngine.Animations.Rigging;
 
 public class PlayerWeaponHolder : MonoBehaviour
 {
-    [SerializeField] private Transform ShovelInIdle;
     [SerializeField] Rig _weaponsRig;
     [SerializeField] private Transform _followerTransform;
 

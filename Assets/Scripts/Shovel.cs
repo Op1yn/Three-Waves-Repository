@@ -11,9 +11,9 @@ public class Shovel : Weapon
 
     public override void Attack()
     {
-        
+        _overlapResultsCount = Physics.OverlapSphereNonAlloc(_overlapStartPoint.position, _sphereRadiys, _overlapResults, _layerMask);
 
-        if (Physics.OverlapSphereNonAlloc(_overlapStartPoint.position, _sphereRadiys, _overlapResults, _layerMask) > 0)
+        if (_overlapResultsCount > 0)
         {
             for (int i = 0; i < _overlapResultsCount; i++)
             {

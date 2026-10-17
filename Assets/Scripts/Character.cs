@@ -1,5 +1,6 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour, IDamageable
 {
+    public abstract void TakeDamage(float damage);
 }

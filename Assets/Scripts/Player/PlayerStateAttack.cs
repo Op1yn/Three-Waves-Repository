@@ -9,7 +9,15 @@ public class PlayerStateAttack : PlayerState
     {
         Character.Animator.CompletedStrike += SetNoneState;
         Character.Animator.SetTriggerAttack();
-        Character.WeaponHolding.CurrentWeapon.Attack();
+
+        if (Character.WeaponHolding.CurrentWeapon.IsFirearm == false)
+        {
+            Character.Animator.DamageFrameReached += Character.WeaponHolding.CurrentWeapon.Attack;
+        }
+        else
+        {
+            Character.WeaponHolding.CurrentWeapon.Attack();
+        }
     }
 
     public override void LateUpdate()
@@ -20,6 +28,11 @@ public class PlayerStateAttack : PlayerState
     public override void Exit()
     {
         Character.Animator.CompletedStrike -= SetNoneState;
+
+        if (Character.WeaponHolding.CurrentWeapon.IsFirearm == false)
+        {
+            Character.Animator.DamageFrameReached -= Character.WeaponHolding.CurrentWeapon.Attack;
+        }
     }
 
     private void SetNoneState()

@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using UnityEngine;
 
@@ -10,12 +11,22 @@ public class PlayerAnimator : MonoBehaviour
     public static readonly int MoveDirectionLeftRight = Animator.StringToHash(nameof(MoveDirectionLeftRight));
     public static readonly int IsFirearm = Animator.StringToHash(nameof(IsFirearm));
     public static readonly int Attack = Animator.StringToHash(nameof(Attack));
+    public static readonly int Dead = Animator.StringToHash(nameof(Dead));
 
     private Vector2 _currentInput = new Vector2(0, 0);
     private float _smoothTime = 0.2f;
     private Vector2 _velocity = new Vector2(0, 0);
 
+    public event Action DamageFrameReached;
     public event Action CompletedStrike;
+    public event Action DeathAnimationEnded;
+
+    private void OnEnable()
+    {
+        DamageFrameReached = null;
+        CompletedStrike = null;
+        DeathAnimationEnded = null;
+    }
 
     public void SetMoveDirection(Vector2 inputDirection)
     {
@@ -48,5 +59,20 @@ public class PlayerAnimator : MonoBehaviour
     public void SetTriggerAttack()
     {
         _animator.SetTrigger(Attack);
+    }
+
+    public void SetTriggerDead()
+    {
+        _animator.SetTrigger(Dead);
+    }
+
+    public void OnDamageFrameReached()
+    {
+        DamageFrameReached?.Invoke();
+    }
+
+    private void ReportEndDeathAnimation()
+    {
+        DeathAnimationEnded?.Invoke();
     }
 }
