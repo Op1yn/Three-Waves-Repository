@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using UnityEngine;
 
@@ -20,13 +19,6 @@ public class PlayerAnimator : MonoBehaviour
     public event Action DamageFrameReached;
     public event Action CompletedStrike;
     public event Action DeathAnimationEnded;
-
-    private void OnEnable()
-    {
-        DamageFrameReached = null;
-        CompletedStrike = null;
-        DeathAnimationEnded = null;
-    }
 
     public void SetMoveDirection(Vector2 inputDirection)
     {

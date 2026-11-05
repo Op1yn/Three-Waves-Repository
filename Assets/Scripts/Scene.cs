@@ -1,70 +1,107 @@
 using System;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Scene : MonoBehaviour
 {
-    [SerializeField] private PlayerInitializer _playerInitializer;
-    [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private GameObject _hud;
-    [SerializeField] private Progressor _progressor;
+    [SerializeField] private PlayerSpawner _playerSpawner;
+    [SerializeField] private ZombieSpawner _zombieSpawner;
+    [SerializeField] private Transform _playerStartingPosition;
+    [SerializeField] private BossSpawner _bossSpawner;
 
-    private ObjectPool<Enemy> _enemiesPool;
-    //private int _zombiesSpawnedCount;
+    [field: SerializeField] public WaveProgressor Progressor { get; private set; }
 
-    public event Action GameOver;
+    private Player _player;
+    private Boss _boss;
 
-    public void InitializeScene()
+    public event Action VictoryWon;
+    public event Action Defeated;
+
+    private void OnDestroy()
     {
-        //_zombiesSpawnedCount = 0;
-
-        Player player = _playerInitializer.CreatePlayer();
-        player.Dying += EndScene;
-        _progressor.ResetCounter();
-        _progressor.KillTargetMet += _enemySpawner.StopSpawn;
-        _progressor.KillTargetMet += _enemySpawner.KillAll;
-        _progressor.KillTargetMet += ReleaseBoss;
-        _enemySpawner.EnemyCreated += OnKillingEnemy;
-        GameOver += _enemySpawner.StopSpawn;
-        GameOver += _enemySpawner.ReturnAllToPool;
-
-        InitializeEnemySpawner(player);
-
-        _hud.SetActive(true);
+        Cleanup();
     }
 
-    public void EndScene()
+    public void Initialize()
     {
-        GameOver?.Invoke();
-        _enemySpawner.EnemyCreated -= OnKillingEnemy;
-        _progressor.KillTargetMet -= _enemySpawner.StopSpawn;
-        _progressor.KillTargetMet -= _enemySpawner.KillAll;
-        _progressor.KillTargetMet -= ReleaseBoss;
-        GameOver -= _enemySpawner.StopSpawn;
-        GameOver -= _enemySpawner.ReturnAllToPool;
+        _player = _playerSpawner.CreatePlayer();
+        _zombieSpawner.Initialize(_player.transform);
+        _boss = _bossSpawner.CreateBoss(_player.transform);
 
-        _hud.SetActive(false);
+        _zombieSpawner.Instantiated += OnZombieInstantiated;
+        _zombieSpawner.Spawned += Progressor.OnZombieSpawned;
+        Progressor.WaveStarted += OnWaveStarted;
+        Progressor.WaveSpawnCompleted += _zombieSpawner.StopSpawn;
+        Progressor.KillTargetMet += OnKillTargetMet;
+        _boss.Dying += OnBossDying;
+
+        _player.Dying += OnPlayerDying;
+        Progressor.WavesOver += OnWavesOver;
     }
 
-    private void OnKillingEnemy(Enemy enemy)
+    public void StartScene()
     {
-        enemy.Dying += _progressor.OnKillingEnemy;
+        _player.SetStartingParameters(_playerStartingPosition.position);
+        Progressor.StartProgressAccount();
     }
 
-    private void InitializeEnemySpawner(Player player)
+    private void OnZombieInstantiated(Zombie zombie)
     {
-        _enemySpawner.SetPlayerTransform(player.transform);
+        zombie.Dying += Progressor.OnKillingEnemy;
+    }
 
-        if (_enemiesPool == null)
+    private void OnWaveStarted(int _)
+    {
+        _zombieSpawner.StartSpawn();
+    }
+
+    private void OnKillTargetMet()
+    {
+        _bossSpawner.Spawn(_boss);
+    }
+
+    private void OnBossDying(Character _)
+    {
+        Progressor.TrySwitchWave();
+    }
+
+    private void OnPlayerDying(Character _)
+    {
+        EndScene();
+        Defeated?.Invoke();
+        _boss.Respawn();
+    }
+
+    private void OnWavesOver()
+    {
+        EndScene();
+        VictoryWon?.Invoke();
+    }
+
+    private void EndScene()
+    {
+        _player.DisableControl();
+        _player.gameObject.SetActive(false);
+        _zombieSpawner.StopSpawn();
+        _zombieSpawner.ReturnAlltoPool();
+    }
+
+    private void Cleanup()
+    {
+        if (_player != null)
         {
-            _enemiesPool = _enemySpawner.InitializeObjectPool();
+            _player.Dying -= OnPlayerDying;
+            _player.Dying -= Progressor.OnKillingEnemy;
         }
 
-        _enemySpawner.StartSpawn();
-    }
+        if (_boss != null)
+            _boss.Dying -= OnBossDying;
 
-    private void ReleaseBoss()
-    {
+        _zombieSpawner.Instantiated -= OnZombieInstantiated;
+        _zombieSpawner.Spawned -= Progressor.OnZombieSpawned;
 
+        Progressor.WaveStarted -= OnWaveStarted;
+        Progressor.WaveSpawnCompleted -= _zombieSpawner.StopSpawn;
+        Progressor.KillTargetMet -= OnKillTargetMet;
+        Progressor.WavesOver -= OnWavesOver;
     }
 }

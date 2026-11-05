@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 6887564085773557397}
   - component: {fileID: 3409836779102173693}
   - component: {fileID: 1407543999308110146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AttackZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1959,7 +1959,7 @@ GameObject:
   - component: {fileID: 8306307819039714015}
   - component: {fileID: 8786425260793944451}
   - component: {fileID: 548461196724182435}
-  - component: {fileID: 372912094566880656}
+  - component: {fileID: 72087310012111856}
   - component: {fileID: 2482857276672182610}
   - component: {fileID: -8303357764241234479}
   - component: {fileID: 5801996200736827307}
@@ -2033,7 +2033,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &372912094566880656
+--- !u!114 &72087310012111856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2042,18 +2042,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 8020430109369729206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5137fba596624741b845e904a4c064f, type: 3}
+  m_Script: {fileID: 11500000, guid: 43e44f315adf7344bbe748862786ebba, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::Zombie
+  <Animator>k__BackingField: {fileID: 2482857276672182610}
+  <NavMeshAgent>k__BackingField: {fileID: 548461196724182435}
+  <AttackDetector>k__BackingField: {fileID: 1407543999308110146}
+  <Damage>k__BackingField: 25
+  <Health>k__BackingField: {fileID: -8303357764241234479}
+  <HitCollider>k__BackingField: {fileID: 5801996200736827307}
   _skins:
   - {fileID: 447245355908901294}
   - {fileID: 685993732048278597}
-  <Animator>k__BackingField: {fileID: 2482857276672182610}
-  <NavMeshAgent>k__BackingField: {fileID: 548461196724182435}
-  <EnemyAttackDetector>k__BackingField: {fileID: 1407543999308110146}
-  <Damage>k__BackingField: 15
-  <Health>k__BackingField: {fileID: -8303357764241234479}
-  <HitCollider>k__BackingField: {fileID: 5801996200736827307}
 --- !u!114 &2482857276672182610
 MonoBehaviour:
   m_ObjectHideFlags: 0

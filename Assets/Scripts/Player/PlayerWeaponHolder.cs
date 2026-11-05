@@ -6,6 +6,7 @@ public class PlayerWeaponHolder : MonoBehaviour
 {
     [SerializeField] Rig _weaponsRig;
     [SerializeField] private Transform _followerTransform;
+    [SerializeField] private LayerMask _ignoreLayers;
 
     private Transform _targetTransform;
 
@@ -35,7 +36,7 @@ public class PlayerWeaponHolder : MonoBehaviour
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, ~_ignoreLayers))
         {
             _followerTransform.position = hit.point;
         }

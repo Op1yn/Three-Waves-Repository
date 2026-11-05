@@ -9,6 +9,8 @@ public class EnemyAnimator : MonoBehaviour
     public static readonly int Attack = Animator.StringToHash(nameof(Attack));
     public static readonly int Dead = Animator.StringToHash(nameof(Dead));
 
+    private static readonly int Strike = Animator.StringToHash(nameof(Strike));
+
     public event Action DamageFrameReached;
     public event Action AttackComplete;
     public event Action DeathAnimationComplete;
@@ -23,7 +25,7 @@ public class EnemyAnimator : MonoBehaviour
         AttackComplete?.Invoke();
     }
 
-    public void ReportEndOfDeathAnimation()
+    public void ReportEndDeathAnimation()
     {
         DeathAnimationComplete?.Invoke();
     }
@@ -46,5 +48,10 @@ public class EnemyAnimator : MonoBehaviour
     public void SetTriggerDead()
     {
         _animator.SetTrigger(Dead);
+    }
+
+    public void RestartAttack()
+    {
+        _animator.Play(Strike, 0, 0f);
     }
 }

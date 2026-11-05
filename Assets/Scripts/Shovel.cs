@@ -24,9 +24,4 @@ public class Shovel : Weapon
             }
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawSphere(_overlapStartPoint.position, _sphereRadiys);
-    //}
 }

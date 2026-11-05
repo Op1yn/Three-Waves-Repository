@@ -1,22 +1,17 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : Character
+public abstract class Enemy : Character
 {
-    [SerializeField] private GameObject[] _skins;
-
     [field: SerializeField] public EnemyAnimator Animator { get; private set; }
     [field: SerializeField] public NavMeshAgent NavMeshAgent { get; private set; }
-    [field: SerializeField] public EnemyAttackDetector EnemyAttackDetector { get; private set; }
+    [field: SerializeField] public EnemyAttackDetector AttackDetector { get; private set; }
     [field: SerializeField] public float Damage { get; private set; } = 10;
     [field: SerializeField] public Health Health { get; private set; }
     [field: SerializeField] public Collider HitCollider { get; private set; }
 
     public Transform PlayerTransform { get; private set; }
     public EnemyStateMachine StateMachine { get; private set; }
-
-    public event Action<Enemy> Dying;
 
     private void Update()
     {
@@ -25,17 +20,22 @@ public class Enemy : Character
 
     private void OnDestroy()
     {
-        Dying = null;
+        Health.HealthPointsOver -= SetStateDeath;
     }
 
-    public void SetPlayerTransform(Transform transform)
-    {
-        PlayerTransform = transform;
-    }
-
-    public void SetStateMachine(EnemyStateMachine stateMachine)
+    public void Initialize(EnemyStateMachine stateMachine, Transform transform)
     {
         StateMachine = stateMachine;
+        PlayerTransform = transform;
+        Health.HealthPointsOver += SetStateDeath;
+        Animator.DeathAnimationComplete += ReportDeath;
+    }
+
+    public void Respawn()
+    {
+        AttackDetector.gameObject.SetActive(false);
+        HitCollider.enabled = false;
+        gameObject.SetActive(false);
     }
 
     public override void TakeDamage(float damage)
@@ -43,23 +43,8 @@ public class Enemy : Character
         Health.SubtractHealth(damage);
     }
 
-    public void OnHealthPointsOver()
+    private void SetStateDeath()
     {
         StateMachine.ChangeState<EnemyStateDead>();
-    }
-
-    public void ReportDeath()
-    {
-        Dying?.Invoke(this);
-    }
-
-    internal void ChooseSkin()
-    {
-        for (int i = 0; i < _skins.Length; i++)
-        {
-            _skins[i].SetActive(false);
-        }
-
-        _skins[UnityEngine.Random.Range(0, _skins.Length)].SetActive(true);
     }
 }

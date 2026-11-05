@@ -1,21 +1,23 @@
-using System;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private MainMenuWindow _mainMenuWindow;
+    [SerializeField] private UserInterface _userInterface;
     [SerializeField] private Scene _scene;
-
-    public bool IsPlaying { get; private set; } = false;
 
     private void Start()
     {
-        _mainMenuWindow.PlayStartButtonPressed += StartGame;
+        _scene.Initialize();
+        SubscribeToEventsEndGame();
+        _userInterface.MainMenuPanel.PlayStartButtonPressed += StartGame;
+        _scene.Progressor.WaveStarted += _userInterface.InformationPanel.OnWaveStarted;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        _mainMenuWindow.PlayStartButtonPressed -= StartGame;
+        _scene.Progressor.WaveStarted -= _userInterface.InformationPanel.OnWaveStarted;
+        _userInterface.MainMenuPanel.PlayStartButtonPressed -= StartGame;
+        UnsubscribeFromEventsEndGame();
     }
 
     private void StartGame()
@@ -23,18 +25,29 @@ public class Game : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        IsPlaying = true;
-        _scene.InitializeScene();
-        _scene.GameOver += EndGame;
+        _userInterface.OnStartGame();
+        _scene.StartScene();
     }
 
-    public void EndGame()
+    public void FinishGame()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
 
-        IsPlaying = false;
-        _mainMenuWindow.DisplayStartMenu();
-        _scene.GameOver -= EndGame;
+    private void SubscribeToEventsEndGame()
+    {
+        _scene.VictoryWon += _userInterface.OnVictory;
+        _scene.Defeated += _userInterface.OnDefeated;
+        _scene.VictoryWon += FinishGame;
+        _scene.Defeated += FinishGame;
+    }
+
+    private void UnsubscribeFromEventsEndGame()
+    {
+        _scene.Defeated -= FinishGame;
+        _scene.VictoryWon -= FinishGame;
+        _scene.Defeated -= _userInterface.OnDefeated;
+        _scene.VictoryWon -= _userInterface.OnVictory;
     }
 }

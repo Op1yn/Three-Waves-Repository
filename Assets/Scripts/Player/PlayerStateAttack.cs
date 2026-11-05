@@ -1,6 +1,3 @@
-using UnityEngine;
-using UnityEngine.InputSystem;
-
 public class PlayerStateAttack : PlayerState
 {
     public PlayerStateAttack(Player player) : base(player) { }

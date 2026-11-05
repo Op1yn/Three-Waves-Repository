@@ -15,21 +15,25 @@ public class Health : MonoBehaviour
         {
             if (IsNumberPositive(CurrentAmount - amount))
             {
-                CurrentAmount -= amount;
+                UpdateHealth(CurrentAmount -= amount);
             }
             else
             {
-                CurrentAmount = 0;
+                UpdateHealth(0);
                 HealthPointsOver?.Invoke();
             }
         }
-
-        HealthChanged?.Invoke(CurrentAmount);
     }
 
     public void SetMaximumHealthPoints()
     {
-        CurrentAmount = MaximumAmount;
+        UpdateHealth(MaximumAmount);
+    }
+
+    private void UpdateHealth(float amount)
+    {
+        CurrentAmount = amount;
+        HealthChanged?.Invoke(CurrentAmount);
     }
 
     private bool IsNumberPositive(float value)

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class EnemyStateAttack : EnemyState
 {
     public EnemyStateAttack(Enemy enemy) : base(enemy) { }
@@ -7,33 +5,33 @@ public class EnemyStateAttack : EnemyState
     public override void Enter()
     {
         Character.Animator.DamageFrameReached += TryInflictDamage;
-        Character.Animator.AttackComplete += TrySetStateChase;
+        Character.Animator.AttackComplete += OnAnimationComplete;
         Character.Animator.SetTriggerAttack();
     }
 
     public override void Exit()
     {
         Character.Animator.DamageFrameReached -= TryInflictDamage;
-        Character.Animator.AttackComplete -= TrySetStateChase;
+        Character.Animator.AttackComplete -= OnAnimationComplete;
     }
 
     private void TryInflictDamage()
     {
-        if (Character.EnemyAttackDetector.IsPlayerInKillZone)
+        if (Character.AttackDetector.IsPlayerInKillZone)
         {
-            Character.EnemyAttackDetector.Player.TakeDamage(Character.Damage);
+            Character.AttackDetector.Player.TakeDamage(Character.Damage);
         }
     }
 
-    private void TrySetStateChase()
+    private void OnAnimationComplete()
     {
-        if (Character.EnemyAttackDetector.IsPlayerInKillZone)
+        if (Character.AttackDetector.IsPlayerInKillZone)
         {
-            Character.Animator.SetTriggerAttack();
+            Character.Animator.RestartAttack();
         }
         else
         {
-            Character.StateMachine.ChangeState<EnemyStateChase>();
+            Character.StateMachine.ChangeState<EnemyStateRunning>();
         }
     }
 }

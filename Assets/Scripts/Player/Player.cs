@@ -1,15 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-
-//TODO Остановился тут. Сделать менеджер волн и затем хилбары для игрока и врагов
-//TODO Остановился тут. А в Scene должен вестись счёт заспавненных зомби, чтобы останавливать когда потребуется
 
 [RequireComponent(typeof(CharacterController))]
 public class Player : Character
 {
-    [SerializeField] private GroundDetector _groundDetector;
-
     [field: SerializeField] public PlayerAnimator Animator { get; private set; }
     [field: SerializeField] public PlayerMover Mover { get; private set; }
     [field: SerializeField] public PlayerRotator Rotator { get; private set; }
@@ -23,19 +17,12 @@ public class Player : Character
     public PlayerStateMachine MovementStateMachine { get; private set; }
     public PlayerStateMachine CombatStateMachine { get; private set; }
 
-    public event Action Dying;
-
     private void Awake()
     {
         MovementStateMachine = new PlayerStateMachine();
         CombatStateMachine = new PlayerStateMachine();
         InputReader = new PlayerInputSystemActions();
         CharacterController = GetComponent<CharacterController>();
-    }
-
-    private void OnEnable()
-    {
-        InputReader.Enable();
     }
 
     private void Update()
@@ -50,10 +37,19 @@ public class Player : Character
         CombatStateMachine.LateUpdate();
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
-        InputReader?.Disable();
         Health.HealthPointsOver -= SetStateDeath;
+    }
+
+    public void Initialize()
+    {
+        Health.HealthPointsOver += SetStateDeath;
+        Mover.SetPlayerInputSystemActions(InputReader);
+        Rotator.SetPlayerInputSystemActions(InputReader);
+        VerticalLook.SetPlayerInputSystemActions(InputReader);
+        Animator.DeathAnimationEnded += ReportDeath;
+        InitializeStates();
     }
 
     public override void TakeDamage(float damage)
@@ -67,8 +63,29 @@ public class Player : Character
         CombatStateMachine.ChangeState<PlayerStateDead>();
     }
 
-    public void ReportDeaths()
+    public void DisableControl()
     {
-        Dying?.Invoke();
+        InputReader?.Disable();
+    }
+
+    public void SetStartingParameters(Vector3 position)
+    {
+        Health.SetMaximumHealthPoints();
+        transform.position = position;
+        InputReader.Enable();
+        MovementStateMachine.ChangeState<PlayerStateIdle>();
+        CombatStateMachine.ChangeState<PlayerStateWeaponSwitch>();
+        gameObject.SetActive(true);
+    }
+
+    private void InitializeStates()
+    {
+        MovementStateMachine.AddState(new PlayerStateIdle(this));
+        MovementStateMachine.AddState(new PlayerStateMove(this));
+        MovementStateMachine.AddState(new PlayerStateDead(this));
+
+        CombatStateMachine.AddState(new PlayerStateNone(this));
+        CombatStateMachine.AddState(new PlayerStateWeaponSwitch(this));
+        CombatStateMachine.AddState(new PlayerStateAttack(this));
     }
 }

@@ -1413,7 +1413,6 @@ GameObject:
   - component: {fileID: 539131827250247519}
   - component: {fileID: 6592408515279840003}
   - component: {fileID: 7428100341143982902}
-  - component: {fileID: 5129720637480430719}
   - component: {fileID: 8109356595250739394}
   - component: {fileID: 8394136751039417602}
   - component: {fileID: 624931627618742270}
@@ -1529,7 +1528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c57d7d18be984354b88712e05a1e152c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  _groundDetector: {fileID: 5129720637480430719}
   <Animator>k__BackingField: {fileID: 8109356595250739394}
   <Mover>k__BackingField: {fileID: 624931627618742270}
   <Rotator>k__BackingField: {fileID: 6394781639534002150}
@@ -1539,23 +1537,6 @@ MonoBehaviour:
   - {fileID: 2865979182290950228}
   <WeaponHolding>k__BackingField: {fileID: 8394136751039417602}
   <Health>k__BackingField: {fileID: 4265619402342018645}
---- !u!114 &5129720637480430719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2075215851088323473}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a2d27c3b61e6d448928aae6b9299e71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GroundDetector
-  _groundCheckPoint: {fileID: 7597973970400356769}
-  _groundCheckRadius: 0.05
-  _groundMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &8109356595250739394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1583,6 +1564,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponHolder
   _weaponsRig: {fileID: 3774820638942426695}
   _followerTransform: {fileID: 1696898185164393088}
+  _ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!114 &624931627618742270
 MonoBehaviour:
   m_ObjectHideFlags: 0
